@@ -7,9 +7,8 @@ Add the Eureka client starter to your `pom.xml` (ensure you have the Spring Clou
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 </dependency>
-```
 
-
+## 2. Update `application.yml`
 
 Configure Eureka client settings and service name:
 ```yaml

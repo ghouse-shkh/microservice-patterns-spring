@@ -14,7 +14,9 @@ import com.learn.booking.repository.BookingRepository;
 public class BookingDataLoader {
     @Bean
     CommandLineRunner loadData(BookingRepository repo) {
+
         return args -> 
+
             repo.saveAll(List.of(
                 Booking.builder().roomId(101L).guestName("Alice").checkInDate(LocalDate.now().plusDays(1)).checkOutDate(LocalDate.now().plusDays(3)).guests(2).totalPrice(400).build(),
                 Booking.builder().roomId(102L).guestName("Bob").checkInDate(LocalDate.now().plusDays(2)).checkOutDate(LocalDate.now().plusDays(5)).guests(4).totalPrice(1050).build(),
@@ -25,3 +27,4 @@ public class BookingDataLoader {
         
     }
 }
+
