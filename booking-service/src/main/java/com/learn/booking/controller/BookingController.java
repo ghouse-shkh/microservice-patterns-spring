@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.booking.dto.AvailabilityResponse;
+import com.learn.booking.dto.InstanceInfo;
 import com.learn.booking.service.BookingService;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,4 +29,9 @@ public class BookingController {
             @RequestParam(defaultValue = "1") int guests) {
         return bookingService.checkAvailability(roomId, checkIn, checkOut, guests);
     }
+
+    @GetMapping("/room-instance")
+    public InstanceInfo getInstanceInfo() {
+        return bookingService.getRoomInstanceInfo();
+    }    
 }

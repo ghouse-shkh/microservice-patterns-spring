@@ -1,4 +1,4 @@
-# Room Service – Eureka Client Setup
+# Booking Service – Eureka Client Setup
 
 ## 1. Add Dependency
 Add the Eureka client starter to your `pom.xml` (ensure you have the Spring Cloud dependency management section added in your pom.xml):
@@ -9,13 +9,12 @@ Add the Eureka client starter to your `pom.xml` (ensure you have the Spring Clou
 </dependency>
 ```
 
-
-
+## 2. Update `application.yml`
 Configure Eureka client settings and service name:
 ```yaml
 spring:
   application:
-    name: room-service
+    name: booking-service
 
 eureka:
   client:
