@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "ff521a7f-413a-497b-a06f-e689992da0d4",
+		"name": "Microservice Patterns",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32340859",
+		"_collection_link": "https://learn6-4115.postman.co/workspace/securitySpace~9481dd00-6754-42c4-9691-9a0525ef6e35/collection/32340859-ff521a7f-413a-497b-a06f-e689992da0d4?action=share&source=collection_link&creator=32340859"
+	},
+	"item": [
+		{
+			"name": "api-gateway",
+			"item": [
+				{
+					"name": "get rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "booking availability",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "room instance from booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/bookings/room-instance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bookings",
+								"room-instance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "room-service",
+			"item": [
+				{
+					"name": "get rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Origin",
+								"value": "http://localhost:3000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8001/api/rooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"api",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
