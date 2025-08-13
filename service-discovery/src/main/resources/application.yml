@@ -10,3 +10,6 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 
+#Only in development (checks for expired leases - 10 sec)
+  server:
+    eviction-interval-timer-in-ms: 10000

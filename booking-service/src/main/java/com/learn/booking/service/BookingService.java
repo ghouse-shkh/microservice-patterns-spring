@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.learn.booking.client.RoomClient;
 import com.learn.booking.dto.AvailabilityResponse;
+import com.learn.booking.dto.InstanceInfo;
 import com.learn.booking.dto.RoomDto;
 import com.learn.booking.repository.BookingRepository;
 
@@ -18,6 +19,11 @@ public class BookingService {
     private final BookingRepository bookingRepo;
     private final RoomClient roomClient;
 
+    public InstanceInfo getRoomInstanceInfo() {
+        return roomClient.getInstanceInfo();
+    }   
+
+    
     public AvailabilityResponse checkAvailability(Long roomId, LocalDate checkIn, LocalDate checkOut, int guests) {
         if (!checkOut.isAfter(checkIn))
             return response(roomId, checkIn, checkOut, false, "Check-out date must be after check-in date");
