@@ -9,7 +9,7 @@ import com.learn.booking.dto.RoomDto;
 
 
 
-@FeignClient(name = "room-service", path = "/api/rooms")
+@FeignClient(name = "room-service", url = "${room.service.url}")
 public interface RoomClient {
     @GetMapping("/{id}")
     RoomDto getRoom(@PathVariable("id") Long id);
