@@ -35,7 +35,7 @@ public class BookingService {
 
         boolean available = isRoomAvailable(roomId, checkIn, checkOut);
         String message = available ? "Room available" : "Room not available";
-        return response(roomId, checkIn, checkOut, available, message);
+        return response(roomId, checkIn, checkOut, available, message, room);
     }
 
     private boolean isRoomAvailable(Long roomId, LocalDate checkIn, LocalDate checkOut) {
@@ -45,13 +45,23 @@ public class BookingService {
     }
 
     private AvailabilityResponse response(Long roomId, LocalDate checkIn, LocalDate checkOut, boolean available,
-            String message) {
-        return AvailabilityResponse.builder()
+            String message, RoomDto room) {
+        var builder = AvailabilityResponse.builder()
                 .roomId(roomId)
                 .checkIn(checkIn)
                 .checkOut(checkOut)
                 .available(available)
-                .message(message)
-                .build();
+                .message(message);
+
+        if (available && room != null) {
+            builder.room(room);
+        }
+
+        return builder.build();
+    }
+
+    private AvailabilityResponse response(Long roomId, LocalDate checkIn, LocalDate checkOut,
+            boolean available, String message) {
+        return response(roomId, checkIn, checkOut, available, message, null);
     }
 }
