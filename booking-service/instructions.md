@@ -1,4 +1,4 @@
-# Booking Service – Eureka Client Setup
+# Booking Service 
 
 ## 1. Add Dependency
 Add the Eureka client starter to your `pom.xml` (ensure you have the Spring Cloud dependency management section added in your pom.xml):

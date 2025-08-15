@@ -12,7 +12,6 @@ import com.learn.booking.dto.AvailabilityResponse;
 import com.learn.booking.dto.InstanceInfo;
 import com.learn.booking.service.BookingService;
 
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,5 +32,5 @@ public class BookingController {
     @GetMapping("/room-instance")
     public InstanceInfo getInstanceInfo() {
         return bookingService.getRoomInstanceInfo();
-    }    
+    }
 }

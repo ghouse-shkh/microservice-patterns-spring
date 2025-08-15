@@ -8,13 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RoomDto {
-        private Long id;
-        private String type;
-        private BigDecimal pricePerNight;
-        private int capacity;
-        private String amenities;
-    }
+    private Long id;
+    private String type;
+    private BigDecimal pricePerNight;
+    private int capacity;
+    private String amenities;
+}

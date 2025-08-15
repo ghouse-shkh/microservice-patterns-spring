@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.learn.booking.dto.InstanceInfo;
 import com.learn.booking.dto.RoomDto;
 
-
-
 @FeignClient(name = "room-service", path = "/api/rooms")
 public interface RoomClient {
     @GetMapping("/{id}")

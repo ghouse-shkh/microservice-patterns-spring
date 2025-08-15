@@ -21,9 +21,8 @@ public class BookingService {
 
     public InstanceInfo getRoomInstanceInfo() {
         return roomClient.getInstanceInfo();
-    }   
+    }
 
-    
     public AvailabilityResponse checkAvailability(Long roomId, LocalDate checkIn, LocalDate checkOut, int guests) {
         if (!checkOut.isAfter(checkIn))
             return response(roomId, checkIn, checkOut, false, "Check-out date must be after check-in date");

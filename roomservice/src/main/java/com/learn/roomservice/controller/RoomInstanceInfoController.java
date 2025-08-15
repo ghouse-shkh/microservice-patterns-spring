@@ -4,8 +4,8 @@ import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.learn.roomservice.model.InstanceInfo;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -21,17 +21,7 @@ public class RoomInstanceInfoController {
                 registration.getInstanceId(),
                 registration.getHost(),
                 registration.getPort(),
-                registration.getUri().toString()
-        );
+                registration.getUri().toString());
     }
 
-    @Data
-    @AllArgsConstructor
-    static class InstanceInfo {
-        private String serviceId;
-        private String instanceId;
-        private String host;
-        private int port;
-        private String uri;
-    }
 }
