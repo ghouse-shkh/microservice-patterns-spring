@@ -1,25 +1,45 @@
 # Room Service – Eureka Client Setup
 
-## 1. Add Dependency
-Add the Eureka client starter to your `pom.xml` (ensure you have the Spring Cloud dependency management section added in your pom.xml):
-```xml
-<dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-</dependency>
-
-## 2. Update `application.yml`
-
-Configure Eureka client settings and service name:
-```yaml
-spring:
-  application:
-    name: room-service
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
+## 1. Error and Latency Simulation
+### RoomService
+```java
+public void simulateDelay(Long delayMs) {
+        if (delayMs != null && delayMs > 0) {
+            try {
+                Thread.sleep(delayMs);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
 ```
+
+### RoomController
+ ```java
+ @GetMapping("/{id}")
+    public Room getRoom(@PathVariable Long id) {
+        // Simulation of error for demonstrating fault tolerance
+        if (id == 9999) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
+        }
+
+        ...
+    }
+
+@GetMapping("/search")
+    public ResponseEntity<List<Room>> search(@RequestParam String type,
+            @RequestParam(required = false) Long delayMs,
+            @RequestParam(required = false) Integer status) {
+
+        // Simulation of latency,error for demonstrating fault tolerance
+        if (delayMs != null) {
+            log.info("Simulating latency of {} ms", delayMs);
+            roomService.simulateDelay(delayMs);
+        }
+        if (status != null && status >= 400) {
+            return ResponseEntity.status(status).build();
+        }
+
+        return ResponseEntity.ok(roomService.searchByType(type));
+    }
+  ```

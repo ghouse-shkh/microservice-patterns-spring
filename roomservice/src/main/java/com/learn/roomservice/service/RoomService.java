@@ -1,6 +1,7 @@
 package com.learn.roomservice.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,22 @@ public class RoomService {
         return repo.findAll();
     }
 
-    public Room getRoomById(Long id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("Room not found"));
+    public Optional<Room> getRoomById(Long id) {
+        return repo.findById(id);
+    }
+
+    public List<Room> searchByType(String type) {
+        return repo.findByTypeIgnoreCase(type);
+    }
+
+    // Simulate latency (ms)
+    public void simulateDelay(Long delayMs) {
+        if (delayMs != null && delayMs > 0) {
+            try {
+                Thread.sleep(delayMs);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }

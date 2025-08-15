@@ -7,11 +7,28 @@ eureka:
       defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
     fetch-registry: true
     register-with-eureka: true
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    prefer-ip-address: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      hotelBreaker:
+        register-health-indicator: true
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
 
 spring:
   application:
     name: api-gateway
-  # MOVED TO JAVA CONFIG. 
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: 6379
+  # MOVED TO JAVA CONFIG.
   # cloud:
   #   gateway:
   #     server:
@@ -37,6 +54,14 @@ spring:
   #             predicates:
   #               - Path=/eureka/**,/lastn/**
 
-
-
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      showDetails: always
+  health:
+    circuitbreakers:
+      enabled: true

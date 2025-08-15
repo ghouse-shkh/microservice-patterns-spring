@@ -9,6 +9,8 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+  instance:
+    prefer-ip-address: true
 
 #Only in development (checks for expired leases - 10 sec)
   server:
