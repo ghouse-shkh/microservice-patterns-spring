@@ -1,0 +1,25 @@
+server:
+  port: 8005
+
+spring:
+  application:
+    name: booking-service
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+  datasource:
+    url: jdbc:h2:mem:bookingdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - health
