@@ -1,16 +1,14 @@
 server:
   port: 8005
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
-    fetch-registry: true
-    register-with-eureka: true
-
 spring:
   application:
     name: booking-service
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
   datasource:
     url: jdbc:h2:mem:bookingdb
     driver-class-name: org.h2.Driver
@@ -21,6 +19,14 @@ spring:
       ddl-auto: create
     show-sql: true
 
+rabbitmq:
+  exchange:
+    name: hotel.exchange
+  routing:
+    key: booking.created
+  queue:
+    name: booking.notifications
+
 management:
   endpoints:
     web:
@@ -28,6 +34,7 @@ management:
         include:
         - shutdown
         - health
+        - beans
   endpoint:
     shutdown:
       access: unrestricted 

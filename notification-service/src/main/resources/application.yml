@@ -4,3 +4,16 @@ server:
 spring:
   application:
     name: notification-service
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USER:guest}
+    password: ${RABBIT_PASSWORD:guest}
+
+rabbitmq:
+  exchange:
+    name: hotel.exchange
+  routing:
+    key: booking.created
+  queue:
+    name: booking.notifications

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.learn.booking.client.RoomClient;
 import com.learn.booking.dto.AvailabilityResponse;
-import com.learn.booking.dto.InstanceInfo;
 import com.learn.booking.dto.RoomDto;
+import com.learn.booking.model.Booking;
 import com.learn.booking.repository.BookingRepository;
 
 import feign.FeignException;
@@ -18,6 +18,12 @@ import lombok.RequiredArgsConstructor;
 public class BookingService {
     private final BookingRepository bookingRepo;
     private final RoomClient roomClient;
+
+
+    public Booking createBooking(Booking booking) {
+        booking.setTotalPrice(0);
+        return bookingRepo.save(booking);
+    }
 
     public AvailabilityResponse checkAvailability(Long roomId, LocalDate checkIn, LocalDate checkOut, int guests) {
         if (!checkOut.isAfter(checkIn))
