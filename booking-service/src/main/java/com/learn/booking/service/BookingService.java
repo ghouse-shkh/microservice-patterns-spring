@@ -11,6 +11,8 @@ import com.learn.booking.dto.BookingRequest;
 import com.learn.booking.dto.BookingResponse;
 import com.learn.booking.dto.RoomDto;
 import com.learn.booking.exceptions.RoomNotAvailableException;
+import com.learn.booking.messaging.events.BookingCreatedEvent;
+import com.learn.booking.messaging.producers.BookingProducer;
 import com.learn.booking.model.Booking;
 import com.learn.booking.repository.BookingRepository;
 
@@ -22,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class BookingService {
     private final BookingRepository bookingRepo;
     private final RoomClient roomClient;
+    private final BookingProducer bookingProducer;
 
     public BookingResponse bookRoom(BookingRequest req) {
         var availability = checkAvailability(req);
@@ -33,14 +36,18 @@ public class BookingService {
         return BookingResponse.fromBooking(savedBooking);
     }
 
-    private Booking saveBooking(BookingRequest req, RoomDto room) {
+    public Booking saveBooking(BookingRequest req, RoomDto room) {
         var booking = req.toBooking();
         long nights = ChronoUnit.DAYS.between(req.getCheckInDate(), req.getCheckOutDate());
         booking.setTotalPrice(room.getPricePerNight().multiply(
                 BigDecimal.valueOf(nights)));
         booking.setStatus("CONFIRMED");
 
-        return bookingRepo.save(booking);
+        bookingRepo.save(booking);
+
+        bookingProducer.sendBookingEvent(BookingCreatedEvent.from(booking));
+
+        return booking;
     }
 
     public AvailabilityResponse checkAvailability(BookingRequest req) {
@@ -65,7 +72,5 @@ public class BookingService {
         return !bookingRepo
                 .existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(request.getRoomId(),
                         request.getCheckOutDate(), request.getCheckInDate());
-
     }
-
 }
